@@ -26,3 +26,4 @@ mood = st.text_input("", key="moodInput1")
 
 #user camera input
 
+st.camera_input()
