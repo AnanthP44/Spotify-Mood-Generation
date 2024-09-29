@@ -73,5 +73,3 @@ get_reccomended_songs(limit=5, seed_artists='', seed_tracks='', market="US",
                       seed_genres="hip-hop", target_danceability=random.randint(0,1), target_energy=1, 
                       target_liveness=1, target_loudness=1, target_tempo=1)
 
-
-print(target_danceability)
