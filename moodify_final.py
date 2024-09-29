@@ -14,22 +14,61 @@ import random
 st.markdown(
     """
     <style>
-    .title {
-        color: green;
-        font-size: 2em;
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
+
+    body {
+        font-family: 'Poppins', sans-serif;
     }
+
+    /* Target the Streamlit main content container */
+    .main {
+        background: linear-gradient(270deg, #ff6f61, #d3e0ea, #00c9ff, #ff6f61);
+        background-size: 800% 800%;
+        animation: gradientAnimation 12s ease infinite;
+        height: 100vh;
+        width: 100vw;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    @keyframes gradientAnimation {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    h1 {
+        font-family: 'Poppins', sans-serif;
+        color: white;
+        font-size: 3em;
+        text-align: center;
+        margin-bottom: 0;
+    }
+
+    h2 {
+        font-family: 'Poppins', sans-serif;
+        color: white;
+        font-size: 2em;
+        text-align: center;
+        margin-top: 0;
+    }
+
     </style>
-    <h1 style="text-align: center;">Howdy!</ p>
-    <h2 style="text-align: center;">Welcome to Moodify</ p>
-    <h2 style="text-align: center;">Let your mood drive Spotify</ p>
-""",
+
+    <div>
+        <h1>Howdy!</h1>
+        <h2>Welcome To Moodify</h2>
+        <h2>Let Your Mood Drive Spotify</h2>
+    </div>
+    """,
     unsafe_allow_html=True,
 )
 
 
 # Spotify API setup
-sp_client_id = "b7b076b85c7d4cc19664df7cef6481ad"
-sp_client_secret = "87963b1a078843e8872072adc5719ea2"
+sp_client_id = "441dc6182d234d05993cd770118ca859"
+sp_client_secret = "f9979f2b5e9648609b7fccf0c99314f8"
 client_credentials_manager = SpotifyClientCredentials(
     client_id=sp_client_id, client_secret=sp_client_secret
 )
@@ -149,7 +188,10 @@ if img_file_buffer is not None:
         photo_path, actions=["emotion"], enforce_detection=False
     )
     dominant_emotion = analysis[0]["dominant_emotion"]
-    st.write(f"Detected Emotion: **{dominant_emotion}**")
+    st.markdown(
+        f"<p style='font-size: 20px; text-align: center;'>Detected Emotion: <b>{dominant_emotion}</b></p>",
+        unsafe_allow_html=True,
+    )
 
     if dominant_emotion in emotion_to_image:
         query = emotion_to_image[dominant_emotion]
@@ -157,7 +199,7 @@ if img_file_buffer is not None:
 
         if dominant_emotion == "happy":
             rec = get_reccomended_songs(
-                limit=5,
+                limit=8,
                 seed_artists="",
                 seed_tracks="",
                 market="US",
@@ -171,7 +213,7 @@ if img_file_buffer is not None:
 
         elif dominant_emotion == "sad":
             rec = get_reccomended_songs(
-                limit=5,
+                limit=8,
                 seed_artists="",
                 seed_tracks="",
                 market="US",
@@ -185,7 +227,7 @@ if img_file_buffer is not None:
 
         else:
             rec = get_reccomended_songs(
-                limit=5,
+                limit=8,
                 seed_artists="",
                 seed_tracks="",
                 market="US",
